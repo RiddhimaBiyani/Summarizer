@@ -1,0 +1,56 @@
+llm:
+  tasks:
+    intent:        [groq/openai/gpt-oss-20b, gemini/flash-lite, ollama/small]
+    segment:       [gemini/flash-lite, groq/openai/gpt-oss-120b, openrouter/free]
+    analyze:       [gemini/flash-lite, groq/openai/gpt-oss-120b, openrouter/free, cloudflare/gpt-oss-120b, ollama/medium]
+    analyze_personal: [groq/openai/gpt-oss-120b, ollama/medium]   # never training tiers
+    relevance:     [groq/openai/gpt-oss-120b, ollama/medium]      # personal content lane
+    vision:        [gemini/flash-lite]
+    enrich_synth:  [groq/openai/gpt-oss-120b, gemini/flash-lite, openrouter/free]
+    section_write: [gemini/flash-lite, groq/openai/gpt-oss-120b, mistral/small]
+    editor:        [gemini/flash, groq/openai/gpt-oss-120b]
+    quiz:          [groq/openai/gpt-oss-20b, gemini/flash-lite]
+    audio_script:  [groq/openai/gpt-oss-120b, gemini/flash-lite]
+    ask:           [groq/openai/gpt-oss-120b, ollama/medium]
+  models:
+    gemini/flash-lite:
+      litellm: "gemini/gemini-3.5-flash-lite"
+      training_tier: true
+      ctx: 1000000
+    gemini/flash:
+      litellm: "gemini/gemini-3.8-flash"
+      training_tier: true
+      ctx: 1000000
+    groq/openai/gpt-oss-120b:
+      litellm: "groq/openai/gpt-oss-120b"
+      training_tier: false
+      ctx: 131072
+      tpm: 8000
+      tpd: 200000
+      rpd: 1000
+    groq/openai/gpt-oss-20b:
+      litellm: "groq/openai/gpt-oss-20b"
+      training_tier: false
+      ctx: 131072
+      tpm: 8000
+      tpd: 200000
+      rpd: 1000
+    openrouter/free:
+      litellm: "openrouter/openrouter/free"
+      training_tier: unknown
+      rpd: 50
+    cloudflare/gpt-oss-120b:
+      litellm: "cloudflare/@cf/openai/gpt-oss-120b"
+      training_tier: false
+    mistral/small:
+      litellm: "mistral/mistral-small-latest"
+      training_tier: unknown
+    ollama/small:
+      litellm: "ollama/qwen3:4b"
+      training_tier: false
+    ollama/medium:
+      litellm: "ollama/qwen3:8b"
+      training_tier: false
+search:  [tavily, exa, searxng, ddgs]
+stt:     [groq/whisper-large-v3-turbo, local/faster-whisper-small]
+tts:     [local/kokoro, local/piper]

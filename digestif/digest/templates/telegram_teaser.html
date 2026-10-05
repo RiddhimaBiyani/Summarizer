@@ -1,0 +1,17 @@
+<b>Digestif · {{ digest_date }} · {{ est_minutes }} min</b>
+<b>{{ editor.headline | e }}</b>
+
+<b>Top 3 Takeaways:</b>
+{% for t in editor.top_three %}
+{{ loop.index }}. {{ t | e }}
+{% endfor %}
+
+<b>Tonight's Briefings:</b>
+{% for it in section_titles %}
+• {{ it.title | e }} <i>({{ it.minutes }}m)</i>
+{% endfor %}
+{% if quick_hits_count > 0 %}
+• +{{ quick_hits_count }} Quick Hits
+{% endif %}
+
+<i>Tap below for the full HTML digest or to mark completed.</i>

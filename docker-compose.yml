@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  digestif:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: digestif
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data:/data
+      - ./config:/app/config
+    environment:
+      - DATA_DIR=/data

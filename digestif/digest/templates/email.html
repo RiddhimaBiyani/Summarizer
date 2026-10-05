@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #1a1a1a; margin: 0; padding: 20px; background-color: #f7f7f7; }
+  .email-container { max-width: 640px; margin: 0 auto; background: #ffffff; padding: 24px; border: 1px solid #e2e8f0; border-radius: 8px; }
+  .header { border-bottom: 2px solid #2563eb; padding-bottom: 12px; margin-bottom: 20px; }
+  .brand { font-size: 20px; font-weight: bold; color: #2563eb; }
+  .meta { font-size: 13px; color: #64748b; margin-top: 4px; }
+  .headline-box { background: #eff6ff; border-left: 4px solid #2563eb; padding: 14px 18px; margin-bottom: 20px; border-radius: 4px; }
+  .headline-title { font-size: 18px; font-weight: bold; margin: 0 0 10px 0; }
+  .section { border-bottom: 1px solid #e2e8f0; padding-bottom: 16px; margin-bottom: 20px; }
+  .quick-hits { background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px 18px; border-radius: 6px; margin-bottom: 20px; }
+  .footer { font-size: 12px; color: #94a3b8; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 14px; margin-top: 24px; }
+  a { color: #2563eb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-container">
+  <div class="header">
+    <div class="brand">DIGESTIF</div>
+    <div class="meta">{{ digest_date }} · {{ saved_count }} items saved · {{ est_minutes }} min reading time</div>
+  </div>
+
+  <div class="headline-box">
+    <div class="headline-title">{{ editor.headline | e }}</div>
+    <strong>Top 3 Takeaways:</strong>
+    <ol style="margin: 6px 0 0 0; padding-left: 20px;">
+      {% for takeaway in editor.top_three %}
+      <li style="margin-bottom: 6px;">{{ takeaway | e }}</li>
+      {% endfor %}
+    </ol>
+  </div>
+
+  {% for section in full_sections %}
+  <div class="section">
+    {{ section | safe }}
+  </div>
+  {% endfor %}
+
+  {% if quick_hits %}
+  <div class="quick-hits">
+    <h3 style="margin-top: 0; font-size: 16px;">Quick Hits</h3>
+    <ul style="margin: 0; padding-left: 20px;">
+      {% for hit in quick_hits %}
+      <li style="margin-bottom: 6px;">{{ hit | safe }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if editor.reflection_prompt %}
+  <div style="background: #fdf2f8; border-left: 4px solid #db2777; padding: 12px 16px; margin-bottom: 20px; border-radius: 4px;">
+    <strong>Tonight's Reflection:</strong> {{ editor.reflection_prompt | e }}
+  </div>
+  {% endif %}
+
+  <div class="footer">
+    Digestif Personal Digest · Delivered to your personal inbox · ₹0 Recurring Cost
+  </div>
+</div>
+</body>
+</html>

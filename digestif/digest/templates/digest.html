@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digestif — {{ digest_date }}</title>
+<style>
+  :root {
+    --bg-color: #fcfcfc;
+    --text-color: #1a1a1a;
+    --card-bg: #ffffff;
+    --card-border: #e8e8e8;
+    --accent: #2563eb;
+    --badge-bg: #f3f4f6;
+    --meta-color: #6b7280;
+    --highlight-bg: #eff6ff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-color: #0f172a;
+      --text-color: #f1f5f9;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --accent: #38bdf8;
+      --badge-bg: #334155;
+      --meta-color: #94a3b8;
+      --highlight-bg: #1e293b;
+    }
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.65;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 24px 16px;
+  }
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  header {
+    border-bottom: 2px solid var(--card-border);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+  }
+  .brand {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+  }
+  .meta-banner {
+    font-size: 0.9rem;
+    color: var(--meta-color);
+    margin-top: 6px;
+  }
+  .headline-card {
+    background-color: var(--highlight-bg);
+    border-left: 4px solid var(--accent);
+    padding: 16px 20px;
+    border-radius: 6px;
+    margin-bottom: 24px;
+  }
+  .headline-card h1 {
+    font-size: 1.35rem;
+    margin: 0 0 12px 0;
+    line-height: 1.3;
+  }
+  .top-three {
+    margin: 0;
+    padding-left: 20px;
+  }
+  .top-three li {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+  }
+  .section-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .section-card h2, .section-card h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+  }
+  .quick-hits {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .reflection-box {
+    background: var(--card-bg);
+    border: 1px dashed var(--accent);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+  footer {
+    border-top: 1px solid var(--card-border);
+    padding-top: 16px;
+    font-size: 0.85rem;
+    color: var(--meta-color);
+    text-align: center;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="brand">DIGESTIF</div>
+    <div class="meta-banner">
+      {{ digest_date }} · Saved {{ saved_count }} items (≈ {{ total_original_minutes }} min original) · <strong>{{ est_minutes }} min digest</strong>
+    </div>
+  </header>
+
+  <div class="headline-card">
+    <h1>{{ editor.headline | e }}</h1>
+    <strong>Top 3 Takeaways:</strong>
+    <ol class="top-three">
+      {% for takeaway in editor.top_three %}
+      <li>{{ takeaway | e }}</li>
+      {% endfor %}
+    </ol>
+  </div>
+
+  <main>
+    {% for section in full_sections %}
+    <div class="section-card">
+      {{ section | safe }}
+    </div>
+    {% endfor %}
+
+    {% if quick_hits %}
+    <div class="quick-hits">
+      <h3>Quick Hits</h3>
+      <ul>
+        {% for hit in quick_hits %}
+        <li>{{ hit | safe }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% if editor.reflection_prompt %}
+    <div class="reflection-box">
+      <strong>Tonight's Reflection:</strong> {{ editor.reflection_prompt | e }}
+    </div>
+    {% endif %}
+
+    {% if letting_go %}
+    <div class="quick-hits">
+      <h3>Letting Go (Archived)</h3>
+      <p style="font-size: 0.85rem; color: var(--meta-color);">Items archived after carryover to keep your reading queue fresh:</p>
+      <ul>
+        {% for item in letting_go %}
+        <li><strong>{{ item.title | e }}</strong> (Saved {{ item.created_at[:10] }})</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </main>
+
+  <footer>
+    Digestif Personal Digest · Generated in {{ est_minutes }} min reading budget · ₹0 Recurring Cost
+  </footer>
+</div>
+</body>
+</html>

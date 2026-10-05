@@ -1,0 +1,22 @@
+timezone: Asia/Kolkata
+digest:
+  time: "21:30"               # delivered at; generation starts 30 min earlier
+  default_budget_minutes: 20  # 15 | 20 | 30 | auto
+  reading_wpm: 230
+  include_audio: false        # Phase 5
+  audio_max_minutes: 15
+  weekly_synthesis_day: sunday
+  carryover_max_days: 7       # unread/overflow items after this go to "let go" list
+  cutoff_policy: "all_ready_not_digested"
+enrichment:
+  enabled: false              # Phase 3
+  max_items_per_day: 5
+  max_sources_per_item: 4
+  prefer_recent_days: 365
+extraction:
+  max_video_minutes: 60
+  remote_worker: false
+privacy:
+  allow_training_tiers_for_public_content: true   # Gemini free tier may use content
+  allow_training_tiers_for_personal_content: false # notes, profile, /ask never go there
+quiet_hours: ["23:30", "07:30"]  # no bot messages except replies

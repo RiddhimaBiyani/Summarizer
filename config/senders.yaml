@@ -1,0 +1,26 @@
+senders:
+  - address: "digest@stratechery.com"
+    name: "Stratechery"
+    shape: "single_essay"
+    trust: 0.9
+    auto_ingest: 1
+  - address: "dan@danwang.co"
+    name: "Dan Wang"
+    shape: "single_essay"
+    trust: 0.9
+    auto_ingest: 1
+  - address: "matt@bloomberg.net"
+    name: "Money Stuff by Matt Levine"
+    shape: "single_essay"
+    trust: 0.9
+    auto_ingest: 1
+  - address: "newsletter@themorningcontext.com"
+    name: "The Morning Context"
+    shape: "single_essay"
+    trust: 0.85
+    auto_ingest: 1
+  - address: "daily@the-ken.com"
+    name: "The Ken"
+    shape: "single_essay"
+    trust: 0.85
+    auto_ingest: 1
